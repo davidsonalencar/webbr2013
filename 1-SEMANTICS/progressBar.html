@@ -1,0 +1,40 @@
+<!DOCUMENT HTML>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript">
+			// Cria o contador para a progressBar
+			var counter = 0;
+			// Velocidade em milisegundos
+			var velocidade = 100;
+			// Cria a função progress() que é o core do programa
+			function progress()
+			{
+			   // Seleciona a nossa progress bar e armazena os valores dela dentro da variavel progress
+			   var progress = document.getElementsByTagName('progress')[0];
+			   // Estrutura condicional que verifica se o contador é menor ou igual a quantidade máxima da progressbar setada
+			   if( counter <= progress.max )
+			   {
+				   // Altera o atributo value do elemento progress com o valor do contador
+				   progress.setAttribute('value', counter++ ); 
+				   self.setTimeout('progress()', velocidade);
+				   // Chama a funçaõ output que altera o valor do elemento output
+				   output();
+			   }
+			}
+			// Função que manipula o output
+			function output()
+			{
+				var output = document.getElementsByName('result')[0];
+				output.value = parseInt(document.getElementsByTagName('progress')[0].value) + " %";
+			} 
+        </script>
+    </head>
+    <body onload="javascript: progress()" >
+    	<p>Fazendo upload do arquivo</p>
+        <form method="post" enctype="multipart/form-data" id="form" name="form" action="enviar.php">
+            <progress value="0" max="100" id="progress"></progress>
+            <output name="result"></output>
+        </form>
+    </body>
+</html>

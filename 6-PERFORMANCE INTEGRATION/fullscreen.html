@@ -1,0 +1,53 @@
+<!DOCUMENT HTML>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+		<title>HTML5 - Video</title>
+		<style>
+			video {
+				height: 170px;
+				margin: 5px;
+				width: 300px;
+			}
+			div {
+				float: left;
+			}			
+			p {
+				font-size: 28px;
+				margin: 5px;
+				text-align: center;
+			}
+		</style>
+		<script>
+			function toggleFullScreen() {
+				if (!document.mozFullScreen && !document.webkitFullScreen) {
+					var videoElement = document.getElementById("meuvideo");
+					
+					videoElement.requestFullScreen = videoElement.requestFullScreen ||
+					                                 videoElement.mozRequestFullScreen ||
+													 videoElement.webkitRequestFullScreen;
+					
+					videoElement.requestFullScreen();
+				} else {
+					document.cancelFullScreen = document.cancelFullScreen ||
+					                            document.mozCancelFullScreen ||
+												document.webkitCancelFullScreen;
+												
+					document.cancelFullScreen();
+				}
+			}
+		</script>
+    </head>
+    <body>
+		<div>
+			<p><input type="button" value="Fullscreen" id="btnfull"></p>
+			<video width="500" height="400" id="meuvideo" controls> 
+				<source src="os-simpsons.webm" type='video/webm; codecs="vp8, vorbis"'> 
+				Seu navegador não suporta a tag vídeo 
+			</video>
+		</div>
+		<script>
+			document.getElementById('btnfull').addEventListener('click', toggleFullScreen);
+		</script>
+    </body>
+</html>

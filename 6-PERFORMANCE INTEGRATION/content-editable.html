@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<style>
+			div {
+				border:1px dotted #000;
+			}
+		</style>
+	</head>
+	<body>
+		
+		
+		<div id="editable" contenteditable="true">
+			Este conteúdo é editavel.<br/><br/>
+			Também estou guardando via localStorage.
+		</div>
+		
+		<script>
+			var editable = document.getElementById('editable');
+
+			editable.addEventListener('blur', function () {
+			    // lame that we're hooking the blur event
+			    localStorage.setItem('contenteditable', this.innerHTML);
+			    document.designMode = 'off';
+			});
+
+			editable.addEventListener('focus', function () {
+			    document.designMode = 'on';
+			});
+
+			if (localStorage.getItem('contenteditable')) {
+				editable.innerHTML = localStorage.getItem('contenteditable');
+			}
+		</script>
+
+	</body>
+</html>
+

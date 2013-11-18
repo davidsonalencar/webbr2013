@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>HTML5 Geolocation</title>
+<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script>
+    
+    if(navigator.geolocation) {
+        
+        function hasPosition(position) {
+            var point = new google.maps.LatLng(position.ob, position.pb),
+            
+            myOptions = {
+                zoom: 15,
+                center: point,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            },
+            
+            mapDiv = document.getElementById("mapDiv"),
+            map = new google.maps.Map(mapDiv, myOptions),
+            
+            marker = new google.maps.Marker({
+                position: point,
+                map: map,
+                title: "Você está no IV Fórum de Software Livre de Duque de Caxias"
+            });
+        }
+		
+		function getLocation(address) {
+			var geo = new google.maps.Geocoder;
+
+			geo.geocode({'address':address},function(results, status){
+				if (status == google.maps.GeocoderStatus.OK) {
+					hasPosition( results[0].geometry.location );
+				} else {
+					alert("Geocode was not successful for the following reason: " + status);
+				}
+			});
+		}
+		
+    }
+</script>
+<style>
+		* {
+			font-size: 1.2em;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		h1 {
+			margin-bottom: 40px;
+			border-bottom: 1px solid #ccc;
+		}
+		
+		div#holder-form {
+			width: 450px;
+			margin: 0 auto;
+		}
+		#mapDiv {
+			width: 90%;
+			height:768px;
+			border:1px solid #efefef;
+			margin:auto;
+			-moz-box-shadow:5px 5px 10px #000;
+			-webkit-box-shadow:5px 5px 10px #000;
+		}
+</style>
+</head>
+
+<body>
+	<div id="holder-form">
+		<form action="gravar.php">
+            
+            <label>Diga sua localização:</label>
+            <input type="text" name="busca" lang="pt-br" x-webkit-speech speech placeholder="clique e fale..." id="busca" ="alert('asas')" />
+    
+        </form>
+    </div>
+    
+    <script>
+		var input = document.querySelector('input');
+		input.addEventListener('webkitspeechchange', function(){
+			getLocation(this.value);
+		});
+		
+	</script>
+<div id="mapDiv"></div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCUMENT HTML>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+		<title>HTML5 - webworker</title>
+		<style>
+			div {
+				border:1px dotted #000;
+				padding: 5px;
+				margin: 5px;
+			}			
+			p {
+				font-size: 28px;
+				margin: 5px;
+				text-align: center;
+			}
+		</style>
+    </head>
+    <body>
+		<p>Web Page</p>
+		<form action="atualizar.php" id="webpage">
+			<input type="button" value="Cálcular"> até <input type="number" value="1000">
+			<div>
+				<label>cálculo 1: </label><span class="calculo1"></span><br/>
+				<label>cálculo 2: </label><span class="calculo2"></span>
+			</div>
+		</form>
+		<script>
+			document.querySelector('#webpage input[type="button"]').addEventListener('click', function(){
+				
+				var number   = document.querySelector('#webpage input[type="number"]');
+				var calculo1 = document.querySelector('#webpage .calculo1');
+				var calculo2 = document.querySelector('#webpage .calculo2');
+				
+				for (i=1; i<=number.value; i++) {
+					calculo1.innerHTML = i;
+				}
+				setTimeout(function(){
+					for (i=1; i<=number.value; i++) {
+						calculo2.innerHTML = i;
+					}
+				}, 200);
+				
+			}, false);
+		</script>
+		<p>Web Worker</p>
+		<form action="atualizar.php" id="webworker">
+			<input type="button" value="Cálcular"> até <input type="number" value="1000"><br/>
+			<div>
+				<label>cálculo 1: </label><span class="calculo1"></span><br/>
+				<label>cálculo 2: </label><span class="calculo2"></span>
+			</div>
+		</form>
+		<script>
+			document.querySelector('#webworker input[type="button"]').addEventListener('click', function(){
+				
+				var number   = document.querySelector('#webworker input[type="number"]');
+				var calculo1 = document.querySelector('#webworker .calculo1');
+				var calculo2 = document.querySelector('#webworker .calculo2');
+								
+				// Worker calculo 1
+				var worker1 = new Worker("calculoWorker.js");
+
+				worker1.addEventListener('message', function (oEvent) {
+					calculo1.innerHTML = oEvent.data;
+				}, false);
+
+				worker1.postMessage(number.value);
+				
+				// Worker calculo 2
+				var worker2 = new Worker("calculoWorker.js");
+
+				worker2.addEventListener('message', function (oEvent) {
+					calculo2.innerHTML = oEvent.data;
+				}, false);
+
+				worker2.postMessage(number.value);
+				
+			}, false);
+		</script>
+		
+    </body>
+</html>

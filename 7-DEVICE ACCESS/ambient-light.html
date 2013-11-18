@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HTML5 - ambient light</title>	
+	</head>
+	<body>
+		Value: <span id="value"></span><br>
+		<audio controls> 
+			<source src="dream-theater.aac" type="audio/aac"> 
+			<source src="dream-theater.ogg" type="audio/ogg"> 
+			<source src="dream-theater.mp3" type="audio/mpeg">
+			<p>seu navegador não suporta audio</p> 
+		</audio>
+		<script>
+			var audio = document.querySelector('audio');
+			window.addEventListener("devicelight", function (event) {
+				var lux = event.value;
+				document.getElementById('value').innerHTML = lux;
+				audio.volume = lux/50;
+			});
+		</script>
+	</body>
+</html>
