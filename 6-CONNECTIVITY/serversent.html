@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>server-sent events</title>
+		<script>
+			var es = new EventSource('serversent.php');
+			
+			es.addEventListener('message', function(event){
+				document.getElementById('content').innerHTML += "Dados recebidos: "+event.data+"<br/>";
+			}, false);
+		</script>
+    </head>
+    <body>
+        <div id="content"></div>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCUMENT HTML>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+		<title>HTML5 - Video</title>
+		<style>
+			video {
+				height: 170px;
+				margin: 5px;
+				width: 300px;
+			}
+			div {
+				float: left;
+			}			
+			p {
+				font-size: 28px;
+				margin: 5px;
+				text-align: center;
+			}
+		</style>
+    </head>
+    <body>
+		<div>
+			<p>os-simpsons.webm</p>
+			<video width="500" height="400" controls> 
+				<source src="os-simpsons.webm" type='video/webm; codecs="vp8, vorbis"'> 
+				Seu navegador não suporta a tag vídeo 
+			</video>
+		</div>
+		<div>
+			<p>os-simpsons.ogv</p>
+			<video width="500" height="400" controls> 
+				<source src="os-simpsons.ogv" type='video/ogg; codecs="theora, vorbis"'> 
+				Seu navegador não suporta a tag vídeo 
+			</video>
+		</div>
+		<div>
+			<p>os-simpsons.mp4</p>
+			<video width="500" height="400" controls> 
+				<source src="os-simpsons.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'> 
+				Seu navegador não suporta a tag vídeo 
+			</video>
+		</div>
+    </body>
+</html>

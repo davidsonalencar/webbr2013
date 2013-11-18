@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<title>localStorage</title>
+		<style>
+			body > div {
+				border:1px dotted #000;
+				margin: 10px;
+			}
+			form {
+				text-align:center;
+			}
+			form, div {
+				font-size: 26px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<form action="salvar.php" name="storage">
+			<input type="radio" name="tipo" value="local" id="local" checked><label for="local">localStorage</label>
+			<input type="radio" name="tipo" value="local" id="session"><label for="session">sessionStorage</label>
+		</form>
+		<div id="editable" contenteditable="true">
+			Sem valor....
+		</div>
+		
+		<script>
+			if (sessionStorage.getItem('contenteditable')) {
+				document.getElementById('session').checked = true;
+			}
+			
+			var editable = document.getElementById('editable');
+			
+			function setStorage(name, value) {
+				if (document.getElementById('local').checked) {
+					sessionStorage.clear();
+					localStorage.setItem(name, value);
+				} else {
+					localStorage.clear();
+					sessionStorage.setItem(name, value);
+				}
+			}
+			function getStorage(name) {
+				if (document.getElementById('local').checked) {
+					return localStorage.getItem(name);
+				} else {
+				
+					return sessionStorage.getItem(name);
+				}
+			}
+			
+			editable.addEventListener('blur', function () {
+			    // lame that we're hooking the blur event
+			    setStorage('contenteditable', this.innerHTML);
+			    document.designMode = 'off';
+			});
+
+			editable.addEventListener('focus', function () {
+			    document.designMode = 'on';
+			});
+			
+			if (getStorage('contenteditable')) {
+				editable.innerHTML = getStorage('contenteditable');
+			}
+		</script>
+
+	</body>
+</html>
+
